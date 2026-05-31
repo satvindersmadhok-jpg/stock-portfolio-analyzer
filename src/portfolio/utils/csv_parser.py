@@ -29,9 +29,27 @@ def parse_csv(file) -> tuple[List[Transaction], list[str]]:
     errors: list[str] = []
 
     try:
-        # utf-8-sig strips the Excel BOM automatically
         raw = file.read()
-        df = pd.read_csv(io.BytesIO(raw), encoding="utf-8-sig")
+        # Decode and strip Excel BOM
+        text = raw.decode("utf-8-sig").strip()
+
+        # Fix: Excel sometimes wraps every row in outer quotes
+        # e.g. '"1,AAPL,3/2/2024,BUY,10,185.07"' → '1,AAPL,3/2/2024,BUY,10,185.07'
+        lines = text.splitlines()
+        cleaned = []
+        for line in lines:
+            line = line.strip()
+            if line.startswith('"') and line.endswith('"'):
+                line = line[1:-1]
+            cleaned.append(line)
+
+        # Strip leading comma from header (e.g. ",Ticker,date,..." → "Ticker,date,...")
+        if cleaned and cleaned[0].startswith(','):
+            cleaned[0] = cleaned[0][1:]
+
+        text = "\n".join(cleaned)
+
+        df = pd.read_csv(io.StringIO(text))
     except Exception as e:
         return [], [f"Could not read CSV: {e}"]
 
