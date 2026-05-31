@@ -1,9 +1,22 @@
+import os
 import streamlit as st
 
 from portfolio.core.models import Transaction
 from portfolio.tabs import transactions as tab_transactions
 from portfolio.tabs import snapshot as tab_snapshot
 from portfolio.tabs import performance as tab_performance
+from portfolio.utils.csv_parser import parse_csv
+
+
+def _load_default_transactions() -> list[Transaction]:
+    """Auto-load transactions from data/sample_transactions.csv on first visit."""
+    base = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    csv_path = os.path.join(base, "data", "sample_transactions.csv")
+    if not os.path.exists(csv_path):
+        return []
+    with open(csv_path, "rb") as f:
+        txs, _ = parse_csv(f)
+    return txs
 
 
 def main():
@@ -35,9 +48,9 @@ def main():
 
     st.title("📈 Stock Portfolio Analyzer")
 
-    # Persist transactions across tabs via session state
+    # Auto-load default transactions on first visit
     if "transactions" not in st.session_state:
-        st.session_state.transactions: list[Transaction] = []
+        st.session_state.transactions = _load_default_transactions()
 
     tab1, tab2, tab3 = st.tabs(["📋 Transactions", "🥧 Portfolio Snapshot", "📊 Historical Performance"])
 
