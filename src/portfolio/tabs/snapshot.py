@@ -9,7 +9,7 @@ from ..core.calculator import build_holdings, active_holdings
 from ..core.market_data import fetch_current_prices
 
 
-_PLOTLY_TEMPLATE = "plotly_dark"
+_PLOTLY_TEMPLATE = "plotly_white"
 _GREEN = "#22c55e"
 _RED = "#ef4444"
 
@@ -53,7 +53,7 @@ def render(transactions: list[Transaction]) -> None:
             hole=0.45,
             textinfo="label+percent",
             textfont_size=14,
-            marker=dict(line=dict(color="#1e1e2e", width=2)),
+            marker=dict(line=dict(color="#ffffff", width=2)),
         )
     )
     fig_pie.update_layout(

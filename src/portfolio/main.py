@@ -14,25 +14,19 @@ def main():
         initial_sidebar_state="collapsed",
     )
 
-    # Force dark theme via CSS
     st.markdown(
         """
         <style>
-        [data-testid="stAppViewContainer"] { background: #0f0f1a; }
-        [data-testid="stHeader"] { background: #0f0f1a; }
         .stTabs [data-baseweb="tab-list"] { gap: 8px; }
         .stTabs [data-baseweb="tab"] {
-            background: #1e1e2e;
             border-radius: 8px 8px 0 0;
             padding: 8px 24px;
             font-weight: 600;
         }
-        .stTabs [aria-selected="true"] { background: #312e81; }
         div[data-testid="metric-container"] > div {
-            background: #1e1e2e;
             border-radius: 10px;
             padding: 12px 16px;
-            border: 1px solid #2d2d44;
+            border: 1px solid #cbd5e1;
         }
         </style>
         """,

@@ -10,7 +10,7 @@ from ..core.market_data import fetch_current_prices, fetch_price_history
 from ..core.metrics import compute_summary, compute_portfolio_trend
 
 
-_PLOTLY_TEMPLATE = "plotly_dark"
+_PLOTLY_TEMPLATE = "plotly_white"
 _GREEN = "#22c55e"
 _RED = "#ef4444"
 _BLUE = "#60a5fa"
@@ -22,9 +22,9 @@ def _metric_card(col, label: str, value: str, delta: str | None = None, positive
         colour = _GREEN if positive else _RED
         col.markdown(
             f"""
-            <div style="background:#1e1e2e;border-radius:10px;padding:18px 20px;border:1px solid #2d2d44;">
-                <div style="font-size:13px;color:#9ca3af;margin-bottom:4px;">{label}</div>
-                <div style="font-size:24px;font-weight:700;color:#f1f5f9;">{value}</div>
+            <div style="background:#ffffff;border-radius:10px;padding:18px 20px;border:1px solid #cbd5e1;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size:13px;color:#64748b;margin-bottom:4px;">{label}</div>
+                <div style="font-size:24px;font-weight:700;color:#0f172a;">{value}</div>
                 <div style="font-size:13px;color:{colour};margin-top:4px;">{delta}</div>
             </div>
             """,
@@ -33,9 +33,9 @@ def _metric_card(col, label: str, value: str, delta: str | None = None, positive
     else:
         col.markdown(
             f"""
-            <div style="background:#1e1e2e;border-radius:10px;padding:18px 20px;border:1px solid #2d2d44;">
-                <div style="font-size:13px;color:#9ca3af;margin-bottom:4px;">{label}</div>
-                <div style="font-size:24px;font-weight:700;color:#f1f5f9;">{value}</div>
+            <div style="background:#ffffff;border-radius:10px;padding:18px 20px;border:1px solid #cbd5e1;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+                <div style="font-size:13px;color:#64748b;margin-bottom:4px;">{label}</div>
+                <div style="font-size:24px;font-weight:700;color:#0f172a;">{value}</div>
             </div>
             """,
             unsafe_allow_html=True,
